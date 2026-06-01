@@ -22,7 +22,7 @@ IU/min ≈ ((100×UVI×C)/F) × A × S
 
 The "100" serves as the mathematical scaling constant to convert the factors and constants into standards IUs.
 
-iTo establish this constant of 100, I followed the Webb & Engelsen core benchmarks. The conditions within their environmental reference found that s young adult (A=1.0) with Fitzpatrick Type II skin (F=1.4) exposing his arms, hands, and face (S=0.3) in clear-sky UV 3.5 weather (UVI=3.5) would generate 1000 IUs in 13 min.
+To establish this constant of 100, I followed the Webb & Engelsen core benchmarks. The conditions within their environmental reference found that s young adult (A=1.0) with Fitzpatrick Type II skin (F=1.4) exposing his arms, hands, and face (S=0.3) in clear-sky UV 3.5 weather (UVI=3.5) would generate 1000 IUs in 13 min.
 
 ```
 UI/min = ((K×UVI×C)/F) × A × S
@@ -93,6 +93,20 @@ sun/
 
 1. User clicks "Start Sun Session"
 
+2. Collect user inputs:
+    - Age
+    - Fitzpatrick Type
+    - Cloud Coverage
+    - Skin Exposure
+
+3. Convert values into model factors:
+    - ageFactor
+    - fitzpatrickFactor
+    - cloudFactor
+    - skinExposureFactor
+
+--------------------------------------------------------
+
 2. Browser requests user's GPS location to get:
     - lattitude
     - longitude
@@ -100,17 +114,6 @@ sun/
 3. Weather API is called to fetch:
     - current UVI
     - hourly UVI forecast
-
-4. Collect user inputs:
-    - age,
-    - Fitzpatrick type,
-    - skin exposure
-
-5. Convert values into model coefficients:
-    - ageFactor
-    - fitzpatrickFactor
-    - cloudFactor
-    - skinExposureFactor
 
 6. Calculate IU/min
 
