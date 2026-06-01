@@ -100,16 +100,16 @@ sun/
     - Skin Exposure
 
 3. Convert values into model factors:
-    - ageFactor
-    - fitzpatrickFactor
-    - cloudFactor
-    - skinExposureFactor
+    - `user_inputs["age"]`
+    - `user_inputs["fitzpatrick"]`
+    - `user_inputs["clouds"]`
+    - `user_inputs["skin"]`
 
---------------------------------------------------------
-
-2. Browser requests user's GPS location to get:
+4. Browser requests user's GPS location to get:
     - lattitude
     - longitude
+
+--------------------------------------------------------
 
 3. Weather API is called to fetch:
     - current UVI
