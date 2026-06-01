@@ -1,6 +1,6 @@
 # Sunlight
 
-The old app I used to use to track my sunlight IU intake no longer works, so I scrapped together this version quickly as an alternative. I plan to make a full-fledged iOS app in the future though. This version is just to tie me over!
+Front-end only IU tracker.
 
 ## How Sunlight Absorption is Calculated
 
@@ -73,6 +73,57 @@ The program stops counting IU's past 15,000 IUs in a single day since the body r
 
 ## Architecture
 
+### File Layout
+```
+sun/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   ├── app.js          # page events + main app flow
+│   ├── location.js     # gets GPS coordinates
+│   ├── weather.js      # fetches UVI/cloud data
+│   ├── calculator.js   # IU/min formula
+│   ├── timer.js        # stopwatch/session tracking
+│   └── constants.js    # factors/coefficient tables
+└── readme.md
+```
+
+### Program Flow
+
+1. User clicks "Start Sun Session"
+
+2. Browser requests user's GPS location to get:
+    - lattitude
+    - longitude
+
+3. Weather API is called to fetch:
+    - current UVI
+    - hourly UVI forecast
+
+4. Collect user inputs:
+    - age,
+    - Fitzpatrick type,
+    - skin exposure
+
+5. Convert values into model coefficients:
+    - ageFactor
+    - fitzpatrickFactor
+    - cloudFactor
+    - skinExposureFactor
+
+6. Calculate IU/min
+
+7. Start stopwatch
+
+8. Every second:
+    - elapsed time is updated,
+    - IU gained is added to total IU
+
+9. Every minute:
+    - IU/min is recalculated
+
+10. Stopwatch stops at 15,000 IU
 
 ## Future Improvements
 
