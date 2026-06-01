@@ -85,7 +85,7 @@ sun/
 │   ├── weather.js      # fetches UVI/cloud data
 │   ├── calculator.js   # IU/min formula
 │   ├── timer.js        # stopwatch/session tracking
-│   └── constants.js    # factors/coefficient tables
+│   └── constants.js    # convert age value into its proper factor
 └── readme.md
 ```
 
