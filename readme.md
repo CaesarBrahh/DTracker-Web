@@ -1,6 +1,6 @@
 # Sunlight
 
-Front-end only IU tracker.
+Front-end only IU tracker. sun.caesarbrahh.dev
 
 ## How Sunlight Absorption is Calculated
 
@@ -22,7 +22,7 @@ IU/min ≈ ((100×UVI×C)/F) × A × S
 
 The "100" serves as the mathematical scaling constant to convert the factors and constants into standards IUs.
 
-To establish this constant of 100, I followed the Webb & Engelsen core benchmarks. The conditions within their environmental reference found that s young adult (A=1.0) with Fitzpatrick Type II skin (F=1.4) exposing his arms, hands, and face (S=0.3) in clear-sky UV 3.5 weather (UVI=3.5) would generate 1000 IUs in 13 min.
+iTo establish this constant of 100, I followed the Webb & Engelsen core benchmarks. The conditions within their environmental reference found that s young adult (A=1.0) with Fitzpatrick Type II skin (F=1.4) exposing his arms, hands, and face (S=0.3) in clear-sky UV 3.5 weather (UVI=3.5) would generate 1000 IUs in 13 min.
 
 ```
 UI/min = ((K×UVI×C)/F) × A × S
@@ -36,12 +36,12 @@ K = 102.56
 
 #### Cloud Coverage Coefficient (C)
 
-Cloud coverage is to not at all deterministic in the slightest and the user has full control over what they think the cloud coverage is, but here's a general reference.
+Cloud coverage is to not at all deterministic in the slightest. The user has the choice between 4 options, but true conditions vary much more grandly than these 4 options, making it undeterministic, but good enough. 
 
 * Clear sky = 1.0
-* Scattered clouds = 0.7-0.9
-* Broken clouds = 0.3-0.6
-* Overcast = 0.1-0.2
+* Scattered clouds = 0.75
+* Broken clouds = 0.5
+* Overcast = 0.25
 
 #### Age Coefficient (A)
 
@@ -56,7 +56,7 @@ Cloud coverage is to not at all deterministic in the slightest and the user has 
 * Short Sleeves + Shorts = 0.5
 * Shirtless + Shorts = 0.8
 * Bikini = 0.9
-* Nude = 1
+* Nude = 1.0
 
 #### Fitzpatrick Factor (F)
 
@@ -126,6 +126,8 @@ sun/
 10. Stopwatch stops at 15,000 IU
 
 ## Future Improvements
+
+Definitely will make the layout way less crude and more user friendly. The inital development as of now is simply for me, so I'm not too worried about design, but implementing some css and some explanations about the factors wouldn't hurt.
 
 I plan on turning this into a full-fledged iOS application in the near-future. 
 

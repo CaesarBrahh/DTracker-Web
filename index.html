@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DTracker</title>
+	</head>
+	<body>
+		<!-- Title -->
+		<h1>DTracker</h1>
+		
+		<!-- Total IUs Synthesized -->
+		<h3>0 IUs Synthesized</h3>
+
+		<!-- IU/min -->
+		<h4>0 IU/min</h4>
+
+		<!-- Elapsed Time -->
+		<h3>00:00</h3>
+
+		<form>
+			<!-- Age input -->
+			<label for="age">Age:</label>
+			<input type="number" id="age">
+			<br>
+
+			<!-- Fitzpatrick Type input -->
+			<label for="fitzpatrick">Fitzpatrick Type:</label>
+			<select id="fitzpatrick" name="fitzpatrick">
+				<option value="1">I</option>
+				<option value="2">II</option>
+				<option value="3">III</option>
+				<option value="4">IV</option>
+				<option value="5">V</option>
+				<option value="6">VI</option>
+			</select>
+			<br>
+
+			<!-- Cloud Coverage input -->
+			<label for="clouds">Cloud Coverage:</label>
+			<select id="clouds" name="clouds">
+				<option value="1.0">Clear sky</option>
+				<option value="0.75">Scattered clouds</option>
+				<option value="0.5">Broken clouds</option>
+				<option value="0.25">Overcast</option>
+			</select>
+			<br>
+
+			<!-- Skin Exposure input -->
+			<label for="skin">Skin Exposure:</label>
+			<select id="skin" name="skin">
+				<option value="0.1">Long sleeves + Pants</option>
+				<option value="0.3">Short sleeves + Pants</option>
+				<option value="0.5">Short sleeves + Shorts</option>
+				<option value="0.8">Shirtless + Shorts</option>
+				<option value="0.9">Bikini</option>
+				<option value="1.0">Naked</option>
+			</select>
+			<br>
+
+			<!-- Submit button -->
+			<input type="submit" value="Start Sun Session">
+		</form>
+
+	</body>
+</html>
