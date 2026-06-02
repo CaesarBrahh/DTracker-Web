@@ -2,6 +2,7 @@ import { getAgeFactor } from "./constants.js";
 import { getUserLocation } from "./location.js";
 import { getUVIData } from "./weather.js";
 import { getIUPerMinute } from "./calculator.js";
+import { startTimer } from "./timer.js";
 
 // collect user inputs
 let user_inputs = {
@@ -36,11 +37,15 @@ form.addEventListener("submit", async function(event) {
 
 	// collect uvi data
 	uvi_data = await getUVIData(location); 
-	user_inputs["current_uvi"] = uvi_data[0];
+	user_inputs["current_uvi"] = Number(uvi_data[0]);
 
 	// error checking - NEEDS TO BE HANDLED ON FAIL CASE
-	console.log(user_inputs["current_uvi"]);
+	console.log(typeof user_inputs["current_uvi"]);
 
 	// calculate IU/min
 	let iuPerMinute = getIUPerMinute(user_inputs);
+	console.log(iuPerMinute);
+
+	// start timer
+	startTimer(iuPerMinute);
 });

@@ -1,3 +1,7 @@
+# TO-DO
+
+* Update the UVI at the turn of each new hour
+
 # Sunlight
 
 Front-end only IU tracker. sun.caesarbrahh.dev
