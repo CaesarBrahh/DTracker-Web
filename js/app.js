@@ -1,5 +1,6 @@
 import { getAgeFactor } from "./constants.js";
 import { getUserLocation } from "./location.js";
+import { getUVIData } from "./weather.js";
 
 // collect user inputs
 let user_inputs = {
@@ -7,8 +8,9 @@ let user_inputs = {
 	"fitzpatrick": null,
 	"clouds": null,
 	"skin": null,
-	"uvi": null,
+	"current_uvi": null,
 };
+let uvi_data = null;
 const form = document.getElementById("user-inputs");
 form.addEventListener("submit", async function(event) {
 	// prevent form values from refreshing
@@ -30,4 +32,10 @@ form.addEventListener("submit", async function(event) {
 
 	// error checking - NEEDS TO BE HANDLED ON FAIL CASE
 	console.log(location);
+
+	// collect uvi data
+	uvi_data = await getUVIData(location); 
+
+	// error checking - NEEDS TO BE HANDLED ON FAIL CASE
+	console.log(uvi_data);
 });

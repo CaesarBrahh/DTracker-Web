@@ -82,7 +82,7 @@ sun/
 ├── js/
 │   ├── app.js          # page events + main app flow
 │   ├── location.js     # gets GPS coordinates
-│   ├── weather.js      # fetches UVI/cloud data
+│   ├── weather.js      # fetches UVI data
 │   ├── calculator.js   # IU/min formula
 │   ├── timer.js        # stopwatch/session tracking
 │   └── constants.js    # convert age value into its proper factor
@@ -135,5 +135,6 @@ Definitely will make the layout way less crude and more user friendly. The inita
 I plan on turning this into a full-fledged iOS application in the near-future. 
 
 I'm looking into utilizing the iPhone's camera to capture a LUX score as an alternative to "Cloud Coverage," providing a more factor!
+(Note to author: open meteo has "cloud coverage" data... so that might be another avenue moving forward that we'll have to look into...)
 
 In addition,Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve. I wanted to get this site out asap, so I kept the linear model, but will definitely implement a more accurate formulation in the near-future!
