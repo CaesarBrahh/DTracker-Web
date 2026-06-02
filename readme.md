@@ -109,9 +109,7 @@ sun/
     - lattitude
     - longitude
 
---------------------------------------------------------
-
-3. Weather API is called to fetch:
+5. Weather API is called to fetch:
     - current UVI
     - hourly UVI forecast
 
@@ -123,12 +121,15 @@ sun/
     - elapsed time is updated,
     - IU gained is added to total IU
 
-9. Every minute:
+9. Every hour:
+    - UVI is updates
     - IU/min is recalculated
 
 10. Stopwatch stops at 15,000 IU
 
 ## Future Improvements
+
+Implement pause/play functionality.
 
 Definitely will make the layout way less crude and more user friendly. The inital development as of now is simply for me, so I'm not too worried about design, but implementing some css and some explanations about the factors wouldn't hurt.
 
