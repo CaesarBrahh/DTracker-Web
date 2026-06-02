@@ -46,10 +46,6 @@ form.addEventListener("submit", async function(event) {
 	const now = new Date();
 	user_inputs["current_uvi"] = uvi_data[now.getHours()];
 
-	// calculate IU/min
-	let iuPerMinute = getIUPerMinute(user_inputs);
-	console.log(iuPerMinute);
-
 	// start timer
-	startTimer(iuPerMinute);
+	startTimer(user_inputs, uvi_data);
 });
