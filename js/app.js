@@ -24,7 +24,7 @@ form.addEventListener("submit", async function(event) {
 	user_inputs["clouds"] = Number(document.getElementById("clouds").value);
 	user_inputs["skin"] = Number(document.getElementById("skin").value);
 
-	// error checking - NEEDS TO BE HANDLED ON FAIL CASE
+	// error checking - NEEDS TO FAIL GRACEFULLY
 	for (let val in user_inputs) {
 		console.log(val + ": " + String(user_inputs[val]));
 	}
@@ -32,15 +32,19 @@ form.addEventListener("submit", async function(event) {
 	// collect user gps coordinates
 	const location = await getUserLocation();
 
-	// error checking - NEEDS TO BE HANDLED ON FAIL CASE
+	// error checking - NEEDS TO FAIL GRACEFULLY
 	console.log(location);
 
 	// collect uvi data
 	uvi_data = await getUVIData(location); 
 	user_inputs["current_uvi"] = Number(uvi_data[0]);
 
-	// error checking - NEEDS TO BE HANDLED ON FAIL CASE
+	// error checking - NEEDS FAIL GRACEFULLY
 	console.log(typeof user_inputs["current_uvi"]);
+
+	// determine current uvi
+	const now = new Date();
+	user_inputs["current_uvi"] = uvi_data[now.getHours()];
 
 	// calculate IU/min
 	let iuPerMinute = getIUPerMinute(user_inputs);

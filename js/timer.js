@@ -3,7 +3,7 @@
 export function startTimer(iuPerMinute) {
 	let elapsedSeconds = 0;
 	let totalIU = 0;
-	const timeElement = idocument.getElementById("time");
+	const timeElement = document.getElementById("time");
 	const avgElement = document.getElementById("iu/min");
 	const iuElement = document.getElementById("iu");
 

@@ -9,9 +9,10 @@ export async function getUVIData(location) {
 	
 	// convert response to jSON
 	const data = await response.json();
+	console.log(data);
 	
 	// parse data
-	const parsed_data = data["hourly"]["uv_index"];
+	const parsed_data = data["hourly"]["uv_index"].slice(0, 24);
 
 	// return data
 	return parsed_data;
