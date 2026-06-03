@@ -20,7 +20,7 @@ export function startTimer(user_inputs, uvi_data) {
 
 		// update screen
 		timeElement.innerHTML = timeFormat(elapsedSeconds);
-		iuElement.innerHTML = `${totalIU} IUs Synthesized`;
+		iuElement.innerHTML = `${totalIU.toFixed(2)} IUs Synthesized`;
 
 		// update UVI every 5 minutes
 		if (elapsedSeconds % 300 == 0) {
@@ -79,7 +79,7 @@ function timeFormat(seconds) {
 		totalMinutes++;
 	}
 
-	return `${totalHours} hrs ${totalMinutes} minutes ${seconds} seconds`
+	return `${totalHours} hr ${totalMinutes} min ${seconds} sec`
 }
 
 function calculateIUPerMinute(user_inputs) {

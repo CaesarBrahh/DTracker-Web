@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f3ea;
+    color: #1f2933;
+}
+
+header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    background: linear-gradient(135deg, #fff3b0, #f9c74f);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3rem;
+}
+
+header p {
+    max-width: 650px;
+    margin: 12px auto 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 24px;
+    display: grid;
+    gap: 32px;
+}
+
+section {
+    background: white;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+}
+
+section[aria-labelledby="results-heading"] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+#results-heading {
+    grid-column: 1 / -1;
+}
+
+section[aria-labelledby="results-heading"] div {
+    padding: 20px;
+    border-radius: 14px;
+    background: #fff8dc;
+    border: 1px solid #f3d36b;
+}
+
+section[aria-labelledby="results-heading"] h3 {
+    margin: 0 0 8px;
+    font-size: 1.4rem;
+}
+
+section[aria-labelledby="results-heading"] p {
+    margin: 0;
+    color: #5f6c72;
+    line-height: 1.5;
+}
+
+form {
+    display: grid;
+    gap: 24px;
+}
+
+fieldset {
+    border: 1px solid #d9dee3;
+    border-radius: 14px;
+    padding: 20px;
+    display: grid;
+    gap: 18px;
+}
+
+legend {
+    padding: 0 8px;
+    font-weight: bold;
+    color: #374151;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+button {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    background: #f59e0b;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d97706;
+}
+
+@media (max-width: 750px) {
+    section[aria-labelledby="results-heading"] {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 2.3rem;
+    }
+}
