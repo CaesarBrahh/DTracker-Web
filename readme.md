@@ -48,7 +48,7 @@ DTracker is implemented as a fully client-side web application. All calculations
 ┌──────────┐                                                       
 │index.html│                                                       
 └──────────┘
-   ├── user inputs age, Fitzpatrick skin type, and skin exposure
+   ├── user inputs age, Fitzpatrick skin type, cloud coverage, and skin exposure
    ▼
 ┌──────┐                                                       
 │app.js│                                                       
@@ -59,7 +59,7 @@ DTracker is implemented as a fully client-side web application. All calculations
    │      └── browser Geolocation API → latitude/longitude
    │
    ├── weather.js
-   │      └── `Open-Meteo API → hourly UV Index & Cloud Coverage forecast
+   │      └── `Open-Meteo API → hourly UV Index forecast
    │
    ▼
 ┌────────┐                                                          
@@ -151,6 +151,8 @@ Cloud coverage is to not at all deterministic in the slightest. The user has the
 The program stops counting IU's past 15,000 IUs in a single day mimicing how the body reaches a photostationary state at 10-15k IUs in order to vitamin D toxicity.
 
 ## Future Improvements
+
+- Improve Cloud Coverage: allow user to modify it or pull cloud coverage data
 
 - pause/play functionality.
 
