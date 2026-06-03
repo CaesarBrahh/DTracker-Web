@@ -2,7 +2,7 @@
 
 DTracker is a web application that estimates vitamin D production from sunlight exposure in real time. Users provide their age, Fitzpatrick skin type, and skin exposure, while the application automatically retrieves local UV Index and cloud coverage data using the browser’s GPS location. During a sunbathing session, DTracker continuously estimates IU production, updates UV intensity throughout the day, and tracks cumulative vitamin D gained over time.
 
-![Demo](IMG_3650.GIF)
+![Demo](media/IMG_3650.GIF)
 
 ## Features
 
