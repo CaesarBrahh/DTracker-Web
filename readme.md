@@ -1,5 +1,3 @@
-WIP!
-
 # DTracker-Web
 
 DTracker is a web application that estimates vitamin D production from sunlight exposure in real time. Users provide their age, Fitzpatrick skin type, and skin exposure, while the application automatically retrieves local UV Index and cloud coverage data using the browser’s GPS location. During a sunbathing session, DTracker continuously estimates IU production, updates UV intensity throughout the day, and tracks cumulative vitamin D gained over time.
@@ -154,11 +152,8 @@ The program stops counting IU's past 15,000 IUs in a single day mimicing how the
 
 - pause/play functionality.
 
-- CSS   
+- Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve.
 
 - iOS application 
 
 - iPhone camera LUX score for cloud coverage
-
-- In addition,Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve. I wanted to get this site out asap, so I kept the linear model, but will definitely implement a more accurate formulation in the near-future!
-
