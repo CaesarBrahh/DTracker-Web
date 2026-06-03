@@ -67,14 +67,14 @@ function updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement) {
 
 function timeFormat(seconds) {
 	let totalHours = 0;
-	while (seconds > 3600) {
-		seconds = seconds - 3600;
+	while (seconds > 3599) {
+		seconds = seconds - 3599;
 		totalHours++;
 	}
 
 	let totalMinutes = 0;
-	while (seconds > 60) {
-		seconds = seconds - 60;
+	while (seconds > 59) {
+		seconds = seconds - 59;
 		totalMinutes++;
 	}
 
