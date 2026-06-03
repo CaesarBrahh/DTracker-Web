@@ -1,12 +1,87 @@
-# TO-DO
+WIP!
 
-* Update the UVI at the turn of each new hour
+# DTracker-Web
 
-# Sunlight
+DTracker is a web application that estimates vitamin D production from sunlight exposure in real time. Users provide their age, Fitzpatrick skin type, and skin exposure, while the application automatically retrieves local UV Index and cloud coverage data using the browser’s GPS location. During a sunbathing session, DTracker continuously estimates IU production, updates UV intensity throughout the day, and tracks cumulative vitamin D gained over time.
 
-Front-end only IU tracker. sun.caesarbrahh.dev
+## Features
 
-## How Sunlight Absorption is Calculated
+* Real-time UV Index and Cloud Coverage retrieval based on GPS location
+* Fitzpatrick skin type and skin exposure adjustments
+* Age-based vitamin D production scaling
+* Live IU/min estimation
+* Session timer with cumulative IU tracking
+* Frontend-only architecture (no backend required)
+
+## Tech Stack
+
+* HTML
+* CSS
+* Javascript (ES Modules)
+
+### APIs
+
+* Open-Meteo Forecast API
+* Browser Geolocation API
+
+## Architecture
+
+DTracker is implemented as a fully client-side web application. All calculations, location retrieval, API requests, and session tracking are performed directly in the browser through JavaScript ES Modules, eliminating the need for a backend server or database. The codebase follows a module design in which each file has a single responsibility with `app.js` orchestrating the overall flow and `timer.js` maintaining the session timing.
+
+### Project Structure
+```
+.
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   ├── app.js          # page events + main app flow
+│   ├── location.js     # gets GPS coordinates
+│   ├── weather.js      # fetches UVI data
+│   ├── timer.js        # session tracking
+│   └── constants.js    # convert age value into its proper factor
+└── readme.md
+```
+
+### Program Flow
+```
+┌──────────┐                                                       
+│index.html│                                                       
+└──────────┘
+   ├── user inputs age, Fitzpatrick skin type, and skin exposure
+   ▼
+┌──────┐                                                       
+│app.js│                                                       
+└──────┘
+   ├── user inputs are stored
+   │
+   ├── location.js
+   │      └── browser Geolocation API → latitude/longitude
+   │
+   ├── weather.js
+   │      └── `Open-Meteo API → hourly UV Index & Cloud Coverage forecast
+   │
+   ▼
+┌────────┐                                                          
+│timer.js│                                                          
+└────────┘                                                    
+   ├── calculates average IUs per minute                              
+   │                                                                  
+   ├── pulls HTML elements                                            
+   │                                                                  
+   ├── increments total IUs by average IUs per minute ◀───────────────┐
+   │                                                                  │
+   ├── updates HTML elements                                          │×1000ms
+   │                                                                  │
+   ├── if 5 minutes have passed, recalculates average IUs per minute ─┘
+   │
+   ▼
+┌─────────────┐
+│Program exits│ if total IUs > 15000
+└─────────────┘
+```
+
+## The Math Behind It All
 
 Given a collection of factors, this program determines how many IUs/min you are receiving. Then a stopwatch begins running incrementing your total IUs based off total time accrued on the stopwatch. 
 
@@ -73,73 +148,17 @@ Cloud coverage is to not at all deterministic in the slightest. The user has the
 
 ### Max Intake
 
-The program stops counting IU's past 15,000 IUs in a single day since the body reaches a photostationary state at that state to prevent vitamin D toxicity.
-
-## Architecture
-
-### File Layout
-```
-sun/
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   ├── app.js          # page events + main app flow
-│   ├── location.js     # gets GPS coordinates
-│   ├── weather.js      # fetches UVI data
-│   ├── calculator.js   # IU/min formula
-│   ├── timer.js        # stopwatch/session tracking
-│   └── constants.js    # convert age value into its proper factor
-└── readme.md
-```
-
-### Program Flow
-
-1. User clicks "Start Sun Session"
-
-2. Collect user inputs:
-    - Age
-    - Fitzpatrick Type
-    - Cloud Coverage
-    - Skin Exposure
-
-3. Convert values into model factors:
-    - `user_inputs["age"]`
-    - `user_inputs["fitzpatrick"]`
-    - `user_inputs["clouds"]`
-    - `user_inputs["skin"]`
-
-4. Browser requests user's GPS location to get:
-    - lattitude
-    - longitude
-
-5. Weather API is called to fetch:
-    - current UVI
-    - hourly UVI forecast
-
-6. Calculate IU/min
-
-7. Start stopwatch
-
-8. Every second:
-    - elapsed time is updated,
-    - IU gained is added to total IU
-
-9. Every hour:
-    - UVI is updates
-    - IU/min is recalculated
-
-10. Stopwatch stops at 15,000 IU
+The program stops counting IU's past 15,000 IUs in a single day mimicing how the body reaches a photostationary state at 10-15k IUs in order to vitamin D toxicity.
 
 ## Future Improvements
 
-Implement pause/play functionality.
+- pause/play functionality.
 
-Definitely will make the layout way less crude and more user friendly. The inital development as of now is simply for me, so I'm not too worried about design, but implementing some css and some explanations about the factors wouldn't hurt.
+- CSS   
 
-I plan on turning this into a full-fledged iOS application in the near-future. 
+- iOS application 
 
-I'm looking into utilizing the iPhone's camera to capture a LUX score as an alternative to "Cloud Coverage," providing a more factor!
-(Note to author: open meteo has "cloud coverage" data... so that might be another avenue moving forward that we'll have to look into...)
+- In addition,Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve. I wanted to get this site out asap, so I kept the linear model, but will definitely implement a more accurate formulation in the near-future!
 
-In addition,Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve. I wanted to get this site out asap, so I kept the linear model, but will definitely implement a more accurate formulation in the near-future!
+- I'm looking into utilizing the iPhone's camera to capture a LUX score as an alternative to "Cloud Coverage," providing a more factor!
+
