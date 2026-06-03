@@ -54,12 +54,13 @@ function updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement) {
 
 	// update user_inputs with new UVI
 	user_inputs["current_uvi"] = true_uvi;
+	console.log(true_uvi);
 
 	// calculate new iuPerMinute
 	let newIUPerMinute = calculateIUPerMinute(user_inputs);
 
 	// update avgElement
-	avgElement.innerHTML = `${newIUPerMinute} IU/min`;
+	avgElement.innerHTML = `${newIUPerMinute.toFixed(2)} IU/min`;
 
 	// return new iuPerMinute
 	return calculateIUPerMinute(user_inputs);

@@ -158,7 +158,7 @@ The program stops counting IU's past 15,000 IUs in a single day mimicing how the
 
 - iOS application 
 
-- In addition,Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve. I wanted to get this site out asap, so I kept the linear model, but will definitely implement a more accurate formulation in the near-future!
+- iPhone camera LUX score for cloud coverage
 
-- I'm looking into utilizing the iPhone's camera to capture a LUX score as an alternative to "Cloud Coverage," providing a more factor!
+- In addition,Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve. I wanted to get this site out asap, so I kept the linear model, but will definitely implement a more accurate formulation in the near-future!
 

@@ -40,7 +40,7 @@ form.addEventListener("submit", async function(event) {
 	user_inputs["current_uvi"] = Number(uvi_data[0]);
 
 	// error checking - NEEDS FAIL GRACEFULLY
-	console.log(typeof user_inputs["current_uvi"]);
+	console.log(`Current UVI: ${user_inputs["current_uvi"]}`);
 
 	// determine current uvi
 	const now = new Date();

@@ -4,62 +4,96 @@
 		<title>DTracker</title>
 	</head>
 	<body>
-		<!-- Title -->
-		<h1>DTracker</h1>
-		
-		<!-- Total IUs Synthesized -->
-		<h3 id="iu">0 IUs Synthesized</h3>
+		<header>
+			<!-- Title -->
+			<h1>DTracker</h1>
+			<p>Estimate vitamin D synthesis from sunlight exposure using your location, UV Index, and personal factors.
+		</header>
+	
+		<main>
+			<section aria-labelledby="results-heading">
+				<h2 id="results-heading">Session Results</h2>
 
-		<!-- IU/min -->
-		<h4 id="iu/min">0 IU/min</h4>
+				<!-- Total IUs Synthesized -->
+				<div>
+					<h3 id="iu">0 IUs Synthesized</h3>
+					<p>Total estimated vitamin D produced during this session.</p>
+				</div>
 
-		<!-- Elapsed Time -->
-		<h3 id="time">0 hrs 0 minutes 0 seconds</h3>
+				<!-- Average IU/min -->
+				<div>
+					<h3 id="iu/min">0 IU/min</h4>
+					<p>Current estimated vitamin D production rate.</p>
+				</div>
 
-		<form id="user-inputs">
-			<!-- Age input -->
-			<label for="age">Age:</label>
-			<input type="number" id="age" min="1">
-			<br>
+				<!-- Elapsed Time -->
+				<div>
+					<h3 id="time">0 hrs 0 minutes 0 seconds</h3>
+					<p>Elapsed sun exposure time.</p>
+				</div>
+			</section>
+			
+			<section aria-labelledby="inputs-heading">
+				<h2 id="inputs-heading">Sun Exposure Inputs</h2>
 
-			<!-- Fitzpatrick Type input -->
-			<label for="fitzpatrick">Fitzpatrick Type:</label>
-			<select id="fitzpatrick" name="fitzpatrick">
-				<option value="1">I</option>
-				<option value="2">II</option>
-				<option value="3">III</option>
-				<option value="4">IV</option>
-				<option value="5">V</option>
-				<option value="6">VI</option>
-			</select>
-			<br>
+				<form id="user-inputs">
+					<fieldset>
+						<legend>Personal Factors</legend>
+						
+						<!-- Age input -->
+						<div>
+							<label for="age">Age:</label>
+							<input type="number" id="age" min="1">
+						</div>
 
-			<!-- Cloud Coverage input -->
-			<label for="clouds">Cloud Coverage:</label>
-			<select id="clouds" name="clouds">
-				<option value="1.0">Clear sky</option>
-				<option value="0.75">Scattered clouds</option>
-				<option value="0.5">Broken clouds</option>
-				<option value="0.25">Overcast</option>
-			</select>
-			<br>
+						<!-- Fitzpatrick Type input -->
+						<div>
+							<label for="fitzpatrick">Fitzpatrick Type:</label>
+							<select id="fitzpatrick" name="fitzpatrick">
+								<option value="1">I</option>
+								<option value="2">II</option>
+								<option value="3">III</option>
+								<option value="4">IV</option>
+								<option value="5">V</option>
+								<option value="6">VI</option>
+							</select>
+						</div>
+					</fieldset>
 
-			<!-- Skin Exposure input -->
-			<label for="skin">Skin Exposure:</label>
-			<select id="skin" name="skin">
-				<option value="0.1">Long sleeves + Pants</option>
-				<option value="0.3">Short sleeves + Pants</option>
-				<option value="0.5">Short sleeves + Shorts</option>
-				<option value="0.8">Shirtless + Shorts</option>
-				<option value="0.9">Bikini</option>
-				<option value="1.0">Naked</option>
-			</select>
-			<br>
+					<fieldset>
+						<legend>Exposure Conditions</legend>
 
-			<!-- Submit button -->
-			<input type="submit" value="Start Sun Session">
-		</form>
-		
+						<!-- Cloud Coverage input -->
+						<div>
+							<label for="clouds">Cloud Coverage:</label>
+							<select id="clouds" name="clouds">
+								<option value="1.0">Clear sky</option>
+								<option value="0.75">Scattered clouds</option>
+								<option value="0.5">Broken clouds</option>
+								<option value="0.25">Overcast</option>
+							</select>
+						</div>
+
+						<!-- Skin Exposure input -->
+						<div>
+							<label for="skin">Skin Exposure:</label>
+							<select id="skin" name="skin">
+								<option value="0.1">Long sleeves + Pants</option>
+								<option value="0.3">Short sleeves + Pants</option>
+								<option value="0.5">Short sleeves + Shorts</option>
+								<option value="0.8">Shirtless + Shorts</option>
+								<option value="0.9">Bikini</option>
+								<option value="1.0">Naked</option>
+							</select>
+						</div>
+					</fieldset>
+
+					<!-- Submit button -->
+					<button type="submit">Start Sun Session</button>
+				</form>
+			</section>
+		</main>
+
 		<script type="module" src="js/app.js"></script>
 	</body>
 </html>
