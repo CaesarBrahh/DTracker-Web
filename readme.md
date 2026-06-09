@@ -115,12 +115,32 @@ K = 102.56
 
 #### Cloud Coverage Coefficient (C)
 
-Cloud coverage is to not at all deterministic in the slightest. The user has the choice between 4 options, but true conditions vary much more grandly than these 4 options, making it undeterministic, but good enough. 
+Cloud coverage data is pulled from the Open-Meteo API. For each hour, we're given a percent value of total cloud coverage from 0-100, with 0% being clear skies, and 100% being complete overcast. 
 
-* Clear sky = 1.0
-* Scattered clouds = 0.75
-* Broken clouds = 0.5
-* Overcast = 0.25
+It'd be simple to then map that factor as such:
+```
+0%   -> 1.00
+25%  -> 0.75
+50%  -> 0.50
+75%  -> 0.25
+100% -> 0.00
+```
+but in reality even 100% of overcast skies still let a surprising amount of UV through!
+
+A more realistic conversion would be:
+```
+C = 1 - 0.75 * (cloudCover / 100);
+```
+which gives:
+```
+0%   -> 1.00
+25%  -> 0.8125
+50%  -> 0.625
+75%  -> 0.4375
+100% -> 0.25
+```
+
+<u>Note</u>: the 25% floor is just a modeling choice, not a physical law.
 
 #### Age Coefficient (A)
 

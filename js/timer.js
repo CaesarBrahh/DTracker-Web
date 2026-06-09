@@ -1,18 +1,20 @@
 // modify time on screen for every second passed
 
-export function startTimer(user_inputs, uvi_data) {
+export function startTimer(user_inputs, uvi_data, cloud_data) {
+	// initialize incrementable values
 	let elapsedSeconds = 0;
 	let totalIU = 0;
 
-	let iuPerMinute = calculateIUPerMinute(user_inputs);
+	// startup data
+	uvi_data["clouds"] = updateClouds(cloud_data);
 	const peakUVIHour = getPeakUVIHour(uvi_data);
+	let iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
 
+	// pull html elements
 	const timeElement = document.getElementById("time");
 	let avgElement = document.getElementById("iu/min");
 	const iuElement = document.getElementById("iu");
-
-	updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
-
+	
 	const timerId = setInterval(() => {
 		// increment time and IU
 		elapsedSeconds++;
@@ -22,9 +24,10 @@ export function startTimer(user_inputs, uvi_data) {
 		timeElement.innerHTML = timeFormat(elapsedSeconds);
 		iuElement.innerHTML = `${totalIU.toFixed(2)} IUs Synthesized`;
 
-		// update UVI every 5 minutes
+		// update UVI and cloud data every 5 minutes
 		if (elapsedSeconds % 300 == 0) {
 			iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
+			uvi_data["clouds"] = updateClouds(cloud_data);
 		}
 
 		// stop tracking past 15k IU's
@@ -32,6 +35,34 @@ export function startTimer(user_inputs, uvi_data) {
 			clearInterval(timerId);
 		}
 	}, 1000);
+}
+
+function updateClouds(cloud_data) {
+	// pull current time
+	const now = new Date();
+	const hour = now.getHours();
+	const next_hour = hour + 1;
+	const minute = now.getMinutes();
+
+	const this_clouds = cloud_data[hour];
+	const next_clouds = cloud_data[next_hour];
+	const n = Math.trunc(minute / 5);
+
+	if (next_clouds > this_clouds) {
+		// clouds are increasing
+		var true_clouds = (this_clouds) + (n * ((next_clouds-this_clouds)/12));
+	} else if (next_clouds < this_clouds) {
+		// clouds are decreasing
+		var true_clouds = (this_clouds) - (n * ((this_clouds - next_clouds)/12));
+	} else {
+		var true_clouds = this_clouds;
+	}
+
+	return getCloudFactor(true_clouds);
+}
+
+function getCloudFactor(cloud) {
+	return 1 - 0.75 * (cloud / 100);
 }
 
 function updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement) {

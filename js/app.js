@@ -4,6 +4,10 @@ import { getUVIData } from "./weather.js";
 import { getIUPerMinute } from "./calculator.js";
 import { startTimer } from "./timer.js";
 
+// todo:
+// use cloud data from api
+// collecting gps doesn't work on mobile
+
 // collect user inputs
 let user_inputs = {
 	"age": null,
@@ -21,7 +25,7 @@ form.addEventListener("submit", async function(event) {
 	// collect and store values
 	user_inputs["age"] = getAgeFactor(Number(document.getElementById("age").value));
 	user_inputs["fitzpatrick"] = Number(document.getElementById("fitzpatrick").value);
-	user_inputs["clouds"] = Number(document.getElementById("clouds").value);
+	// user_inputs["clouds"] = Number(document.getElementById("clouds").value);
 	user_inputs["skin"] = Number(document.getElementById("skin").value);
 
 	// error checking - NEEDS TO FAIL GRACEFULLY
@@ -35,9 +39,11 @@ form.addEventListener("submit", async function(event) {
 	// error checking - NEEDS TO FAIL GRACEFULLY
 	console.log(location);
 
-	// collect uvi data
-	uvi_data = await getUVIData(location); 
+	// collect uvi and cloud data
+	const { uvi_data, cloud_data } = await getUVIData(location); 
 	user_inputs["current_uvi"] = Number(uvi_data[0]);
+	user_inputs["clouds"] = Number(cloud_data[0]);
+	console.log(user_inputs);
 
 	// error checking - NEEDS FAIL GRACEFULLY
 	console.log(`Current UVI: ${user_inputs["current_uvi"]}`);
@@ -47,5 +53,5 @@ form.addEventListener("submit", async function(event) {
 	user_inputs["current_uvi"] = uvi_data[now.getHours()];
 
 	// start timer
-	startTimer(user_inputs, uvi_data);
+	startTimer(user_inputs, uvi_data, cloud_data);
 });
