@@ -48,7 +48,7 @@ DTracker is implemented as a fully client-side web application. All calculations
 ┌──────────┐                                                       
 │index.html│                                                       
 └──────────┘
-   ├── user inputs age, Fitzpatrick skin type, cloud coverage, and skin exposure
+   ├── user inputs age, Fitzpatrick skin type, and skin exposure
    ▼
 ┌──────┐                                                       
 │app.js│                                                       
@@ -59,7 +59,7 @@ DTracker is implemented as a fully client-side web application. All calculations
    │      └── browser Geolocation API → latitude/longitude
    │
    ├── weather.js
-   │      └── `Open-Meteo API → hourly UV Index forecast
+   │      └── `Open-Meteo API → hourly UVI and cloud coverage forecast
    │
    ▼
 ┌────────┐                                                          
@@ -69,15 +69,15 @@ DTracker is implemented as a fully client-side web application. All calculations
    │                                                                  
    ├── pulls HTML elements                                            
    │                                                                  
-   ├── increments total IUs by average IUs per minute ◀───────────────┐
-   │                                                                  │
-   ├── updates HTML elements                                          │×1000ms
-   │                                                                  │
-   ├── if 5 minutes have passed, recalculates average IUs per minute ─┘
+   ├── increments total IUs by average IUs per minute ◀─┐
+   │                                                    │
+   ├── updates HTML elements                            │×1000ms
+   │                                                    │
+   ├── if 5 minutes have passed, recalculates IU/min ───┘
    │
    ▼
 ┌─────────────┐
-│Program exits│ if total IUs > 15000
+│Program exits│ if total IUs > 15000 or UVI < 3
 └─────────────┘
 ```
 
@@ -170,9 +170,11 @@ which gives:
 
 The program stops counting IU's past 15,000 IUs in a single day mimicing how the body reaches a photostationary state at 10-15k IUs in order to vitamin D toxicity.
 
-## Future Improvements
+### Minimum UVI
 
-- Improve Cloud Coverage: allow user to modify it or pull cloud coverage data
+Vitamin D synthesis only occurs when UVI >= 3.
+
+## Future Improvements
 
 - pause/play functionality.
 

@@ -6,7 +6,7 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 	let totalIU = 0;
 
 	// startup data
-	uvi_data["clouds"] = updateClouds(cloud_data);
+	user_inputs["clouds"] = updateClouds(cloud_data);
 	const peakUVIHour = getPeakUVIHour(uvi_data);
 	let iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
 
@@ -26,12 +26,19 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 
 		// update UVI and cloud data every 5 minutes
 		if (elapsedSeconds % 300 == 0) {
+			user_inputs["clouds"] = updateClouds(cloud_data);
 			iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
-			uvi_data["clouds"] = updateClouds(cloud_data);
 		}
 
 		// stop tracking past 15k IU's
 		if (totalIU > 15000) {
+			alert("Tracking stopped: 15,000 IU limit reached.");
+			clearInterval(timerId);
+		}
+		
+		// stop tracking belwo 3 UVI
+		if (user_inputs["current_uvi"] < 3) {
+			alert("Tracking stopped: UV Index has fallen below 3.");
 			clearInterval(timerId);
 		}
 	}, 1000);
