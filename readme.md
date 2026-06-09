@@ -140,7 +140,7 @@ which gives:
 100% -> 0.25
 ```
 
-<u>Note</u>: the 25% floor is just a modeling choice, not a physical law.
+> **Note**: the 25% floor is just a modeling choice, not a physical law.
 
 #### Age Coefficient (A)
 
@@ -181,5 +181,3 @@ Vitamin D synthesis only occurs when UVI >= 3.
 - Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve.
 
 - iOS application 
-
-- iPhone camera LUX score for cloud coverage

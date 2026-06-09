@@ -28,25 +28,26 @@ form.addEventListener("submit", async function(event) {
 	// user_inputs["clouds"] = Number(document.getElementById("clouds").value);
 	user_inputs["skin"] = Number(document.getElementById("skin").value);
 
-	// error checking - NEEDS TO FAIL GRACEFULLY
-	for (let val in user_inputs) {
-		console.log(val + ": " + String(user_inputs[val]));
+	// collect user gps coordinates
+	try {
+		var location = await getUserLocation();
+	} catch (error) {
+		alert("Location access failed.");
+		console.error(error);
+		return;
 	}
 
-	// collect user gps coordinates
-	const location = await getUserLocation();
-
-	// error checking - NEEDS TO FAIL GRACEFULLY
-	console.log(location);
-
 	// collect uvi and cloud data
-	const { uvi_data, cloud_data } = await getUVIData(location); 
+	try {
+		var { uvi_data, cloud_data } = await getUVIData(location); 
+	} catch(error) {
+		alert("Weather request to Open-Meteo failed.");
+		console.error(error);
+		return;
+	}
 	user_inputs["current_uvi"] = Number(uvi_data[0]);
 	user_inputs["clouds"] = Number(cloud_data[0]);
 	console.log(user_inputs);
-
-	// error checking - NEEDS FAIL GRACEFULLY
-	console.log(`Current UVI: ${user_inputs["current_uvi"]}`);
 
 	// determine current uvi
 	const now = new Date();
