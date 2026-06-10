@@ -32,7 +32,10 @@ form.addEventListener("submit", async function(event) {
 	try {
 		var location = await getUserLocation();
 	} catch (error) {
-		alert("Location access failed.");
+		alert(`Location access failed:
+			Code: ${error.code}
+			Message: ${error.message}`
+		);
 		console.error(error);
 		return;
 	}
@@ -41,7 +44,7 @@ form.addEventListener("submit", async function(event) {
 	try {
 		var { uvi_data, cloud_data } = await getUVIData(location); 
 	} catch(error) {
-		alert("Weather request to Open-Meteo failed.");
+		alert("Weather request to Open-Meteo failed:");
 		console.error(error);
 		return;
 	}
