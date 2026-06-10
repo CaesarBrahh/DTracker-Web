@@ -5,16 +5,18 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 	let elapsedSeconds = 0;
 	let totalIU = 0;
 
+	// pull html elements
+	const timeElement = document.getElementById("time");
+	let avgElement = document.getElementById("iu/min");
+	const iuElement = document.getElementById("iu");
+
+
 	// startup data
 	user_inputs["clouds"] = updateClouds(cloud_data);
 	const peakUVIHour = getPeakUVIHour(uvi_data);
 	let iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
 
-	// pull html elements
-	const timeElement = document.getElementById("time");
-	let avgElement = document.getElementById("iu/min");
-	const iuElement = document.getElementById("iu");
-	
+		
 	const timerId = setInterval(() => {
 		// increment time and IU
 		elapsedSeconds++;
