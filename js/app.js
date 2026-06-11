@@ -32,10 +32,7 @@ form.addEventListener("submit", async function(event) {
 	try {
 		var location = await getUserLocation();
 	} catch (error) {
-		alert(`Location access failed:
-			Code: ${error.code}
-			Message: ${error.message}`
-		);
+		alert("Location access failed");
 		console.error(error);
 		return;
 	}
