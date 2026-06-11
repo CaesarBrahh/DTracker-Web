@@ -118,6 +118,13 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
 }
 
+.weather-row {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
 button {
     padding: 14px 20px;
     border: none;

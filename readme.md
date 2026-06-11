@@ -180,4 +180,4 @@ Vitamin D synthesis only occurs when UVI >= 3.
 
 - Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve.
 
-- iOS application 
+- UVI estimations break at 11pm, but ei vitsii
