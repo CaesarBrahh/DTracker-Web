@@ -176,6 +176,8 @@ Vitamin D synthesis only occurs when UVI >= 3.
 
 ## Future Improvements
 
+- Keep timer persistently running in the background
+
 - pause/play functionality.
 
 - Vitamin D absorption isn't a linear model as it tends to form an <I>aympotatic</i> curve.

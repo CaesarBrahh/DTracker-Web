@@ -17,7 +17,7 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 	user_inputs["clouds"] = updateClouds(cloud_data, cloudsElement);
 	const peakUVIHour = getPeakUVIHour(uvi_data);
 	let iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
-	uviElement.innerHTML = `UVI: ${user_inputs["current_uvi"]}`;
+	uviElement.innerHTML = `UVI: ${user_inputs["current_uvi"].toFixed(2)}`;
 		
 	const timerId = setInterval(() => {
 		// increment time and IU
@@ -30,9 +30,9 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 
 		// update UVI and cloud data every 5 minutes
 		if (elapsedSeconds % 300 == 0) {
-			user_inputs["clouds"] = updateClouds(cloud_data);
+			user_inputs["clouds"] = updateClouds(cloud_data, cloudsElement);
 			iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
-			uviElement.innerHTML = `UVI: ${user_inputs["current_uvi"]}`;
+			uviElement.innerHTML = `UVI: ${user_inputs["current_uvi"].toFixed(2)}`;
 		}
 
 		// stop tracking past 15k IU's
@@ -71,7 +71,8 @@ function updateClouds(cloud_data, cloudsElement) {
 	}
 
 	// update html element
-	cloudsElement.innerHTML = `Cloud Coverage: ${true_clouds}%`;
+	cloudsElement.innerHTML = `Cloud Coverage: ${true_clouds.toFixed(2)}%`;
+	console.log(true_clouds);
 
 	return getCloudFactor(true_clouds);
 }
@@ -107,6 +108,7 @@ function updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement) {
 
 	// update avgElement
 	avgElement.innerHTML = `${newIUPerMinute.toFixed(2)} IU/min`;
+	console.log(newIUPerMinute);
 
 	// return new iuPerMinute
 	return calculateIUPerMinute(user_inputs);
