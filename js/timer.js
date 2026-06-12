@@ -1,5 +1,55 @@
 // modify time on screen for every second passed
 
+export function _startTimer(iuPerMinutes) {
+	// pull html elements
+	const timeElement = document.getElemenyById("time");
+	const avgElement = document.getElementById("iu/min");
+	const iuElement = document.getElementById("iu");
+	const uviElement = document.getElementById("uvi");
+	const cloudsElement = document.getElementById("clouds");
+
+	// set current start time
+	const seessionStart = Date.now();
+	let elapsedSeconds = 0;
+
+	// run timer
+	const timerId = setInerval(() => {
+		// determine total IU
+		const now = Date.now();
+		elapsedSeconds = Math.floor((now - sessionStart) / 1000);
+		totalIU = calculateTotalIU(sessionStart, iuPerMinutes, elapsedSeconds);
+
+		// determine current iu/min
+
+		// determine current UVI 
+		
+		// determine current Cloud Coverage
+
+		// update html elements
+	}, 1000);
+}
+
+function calculateTotalIU(sessionStart, iuPerMinutes, elapsedSeconds) {
+	let totalIU = 0;
+	
+	// determine total minuts that have passed
+	let passed_minutes = elapsedSeconds / 60;
+	
+	// find initial index
+	let i = sessionStart.getHours()*12 + Math.floor(sessionStart.getMinutes() / 5);
+
+	// add to totalIU in 5 minute increments based on iuPerMinute value
+	while (passed_minutes > 5) {
+		totalIU += (iuPerMinutes[i] * 5);
+		passed_minutes -= 5;
+		i++;
+	}
+	totalIU += (iuPerMinutes[i] * passed_minutes);
+	
+	// return iuPerminute * total min passed
+	return totalIU;
+}
+
 export function startTimer(user_inputs, uvi_data, cloud_data) {
 	// initialize incrementable values
 	let elapsedSeconds = 0;
@@ -18,11 +68,12 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 	const peakUVIHour = getPeakUVIHour(uvi_data);
 	let iuPerMinute = updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement);
 	uviElement.innerHTML = `UVI: ${user_inputs["current_uvi"].toFixed(2)}`;
-		
+	
+	const startTime = Date.now();
 	const timerId = setInterval(() => {
 		// increment time and IU
-		elapsedSeconds++;
-		totalIU += iuPerMinute / 60;
+		elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+		totalIU = iuPerMinute * (elapsedSeconds / 60);
 
 		// update screen
 		timeElement.innerHTML = timeFormat(elapsedSeconds);
@@ -42,10 +93,10 @@ export function startTimer(user_inputs, uvi_data, cloud_data) {
 		}
 		
 		// stop tracking belwo 3 UVI
-		if (user_inputs["current_uvi"] < 3) {
+		/*if (user_inputs["current_uvi"] < 3) {
 			alert("Tracking stopped: UV Index has fallen below 3.");
 			clearInterval(timerId);
-		}
+		}*/
 	}, 1000);
 }
 
