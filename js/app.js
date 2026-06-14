@@ -4,10 +4,6 @@ import { getUVIData } from "./weather.js";
 import { calculateSessionTimeline } from "./calculator.js";
 import { startTimer } from "./timer.js";
 
-// todo:
-// use cloud data from api
-// collecting gps doesn't work on mobile
-
 // collect user inputs
 let user_inputs = {
 	"age": null,
@@ -49,7 +45,8 @@ form.addEventListener("submit", async function(event) {
 
 	// build session timeline
 	let timeline = calculateSessionTimeline(user_inputs, uvi_data, cloud_data);
+	console.log(timeline);
 
 	// start timer
-	startTimer(user_inputs, uvi_data, cloud_data);
+	startTimer(timeline);
 });

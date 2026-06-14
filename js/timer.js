@@ -2,22 +2,22 @@
 
 export function startTimer(timeline) {
 	// pull html elements
-	const timeElement = document.getElemenyById("time");
+	const timeElement = document.getElementById("time");
 	const avgElement = document.getElementById("iu/min");
 	const iuElement = document.getElementById("iu");
 	const uviElement = document.getElementById("uvi");
 	const cloudsElement = document.getElementById("clouds");
 
 	// set start time
-	const seessionStartMs = Date.now();
+	const sessionStartMs = Date.now();
 
 	// run timer
-	const timerId = setInerval(() => {
+	const timerId = setInterval(() => {
 		// determine total IU
 		const nowMs = Date.now();
 		const elapsedSeconds = Math.floor((nowMs - sessionStartMs) / 1000);
 		const totalIU = calculateTotalIU(sessionStartMs, nowMs, timeline);
-		const current = timeline[new Date(nowMs).getHours()];
+		const current = timeline[new Date(nowMs).getHours()];	
 
 		// display total IU
 		iuElement.innerHTML = `${totalIU.toFixed(2)} IUs Synthesized`;
@@ -42,8 +42,8 @@ export function startTimer(timeline) {
 
 		// end session if uvi < 3
 		if (current['uvi'] < 3) {
-			alert("Tracked stopped. UVI has fallen below 3.");
-			clearInterval(timerId);
+			//alert("Tracked stopped. UVI has fallen below 3.");
+			//clearInterval(timerId);
 		}
 	}, 1000);
 }
