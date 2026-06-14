@@ -1,7 +1,7 @@
 import { getAgeFactor } from "./constants.js";
 import { getUserLocation } from "./location.js";
 import { getUVIData } from "./weather.js";
-import { getIUPerMinute } from "./calculator.js";
+import { calculateSessionTimeline } from "./calculator.js";
 import { startTimer } from "./timer.js";
 
 // todo:
@@ -45,13 +45,10 @@ form.addEventListener("submit", async function(event) {
 		console.error(error);
 		return;
 	}
-	user_inputs["current_uvi"] = Number(uvi_data[0]);
-	user_inputs["clouds"] = Number(cloud_data[0]);
 	console.log(user_inputs);
 
-	// determine current uvi
-	const now = new Date();
-	user_inputs["current_uvi"] = uvi_data[now.getHours()];
+	// build session timeline
+	let timeline = calculateSessionTimeline(user_inputs, uvi_data, cloud_data);
 
 	// start timer
 	startTimer(user_inputs, uvi_data, cloud_data);

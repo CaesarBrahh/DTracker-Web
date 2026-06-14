@@ -1,6 +1,6 @@
 // modify time on screen for every second passed
 
-export function _startTimer(iuPerMinutes) {
+export function startTimer(timeline) {
 	// pull html elements
 	const timeElement = document.getElemenyById("time");
 	const avgElement = document.getElementById("iu/min");
@@ -8,49 +8,73 @@ export function _startTimer(iuPerMinutes) {
 	const uviElement = document.getElementById("uvi");
 	const cloudsElement = document.getElementById("clouds");
 
-	// set current start time
-	const seessionStart = Date.now();
-	let elapsedSeconds = 0;
+	// set start time
+	const seessionStartMs = Date.now();
 
 	// run timer
 	const timerId = setInerval(() => {
 		// determine total IU
-		const now = Date.now();
-		elapsedSeconds = Math.floor((now - sessionStart) / 1000);
-		totalIU = calculateTotalIU(sessionStart, iuPerMinutes, elapsedSeconds);
+		const nowMs = Date.now();
+		const elapsedSeconds = Math.floor((nowMs - sessionStartMs) / 1000);
+		const totalIU = calculateTotalIU(sessionStartMs, nowMs, timeline);
+		const current = timeline[new Date(nowMs).getHours()];
 
-		// determine current iu/min
+		// display total IU
+		iuElement.innerHTML = `${totalIU.toFixed(2)} IUs Synthesized`;
 
-		// determine current UVI 
+		// display current iu/min
+		avgElement.innerHTML = `${current['iuPerMinute'].toFixed(2)} IU/min`;
+
+		// display current UVI 
+		uviElement.innerHTML = `UVI: ${current['uvi'].toFixed(2)}`;
 		
-		// determine current Cloud Coverage
+		// display current Cloud Coverage
+		cloudsElement.innerHTML = `Cloud Coverage: ${current['clouds']}%`;
 
-		// update html elements
+		// display time
+		timeElement.innerHTML = timeFormat(elapsedSeconds);
+
+		// end session if total ui > 15,000
+		if (totalIU > 15000) {
+			alert("Tracking stopped. 15,000 IU limit reached.");
+			clearInterval(timerId);
+		}
+
+		// end session if uvi < 3
+		if (current['uvi'] < 3) {
+			alert("Tracked stopped. UVI has fallen below 3.");
+			clearInterval(timerId);
+		}
 	}, 1000);
 }
 
-function calculateTotalIU(sessionStart, iuPerMinutes, elapsedSeconds) {
+function calculateTotalIU(sessionStartMs, nowMs, timeline) {
+	// start the running iu total
 	let totalIU = 0;
-	
-	// determine total minuts that have passed
-	let passed_minutes = elapsedSeconds / 60;
-	
-	// find initial index
-	let i = sessionStart.getHours()*12 + Math.floor(sessionStart.getMinutes() / 5);
 
-	// add to totalIU in 5 minute increments based on iuPerMinute value
-	while (passed_minutes > 5) {
-		totalIU += (iuPerMinutes[i] * 5);
-		passed_minutes -= 5;
-		i++;
-	}
-	totalIU += (iuPerMinutes[i] * passed_minutes);
+	// loop through each timeblock in timeline
+	for (const block of timeline) {
+		// determine when user's session overlaps this block
+		const overlapStart = Math.max(sessionStartMs, block['startMs']);
+
+		// determine when overlap ends
+		const overlapEnd = Math.min(nowMs, block['endMs']);
+
+		// check whether session actually touched the block
+		if (overlapEnd > overlapStart) {
+			// convert overlapped time from ms -> min
+			const minutes = (overlapEnd - overlapStart) / 1000 / 60;
+
+			// increment totalIU
+			totalIU += (block['iuPerMinute'] * minutes);
+		}
+	}	
 	
-	// return iuPerminute * total min passed
+	// return totalIU
 	return totalIU;
 }
 
-export function startTimer(user_inputs, uvi_data, cloud_data) {
+function _startTimer(user_inputs, uvi_data, cloud_data) {
 	// initialize incrementable values
 	let elapsedSeconds = 0;
 	let totalIU = 0;
@@ -128,10 +152,6 @@ function updateClouds(cloud_data, cloudsElement) {
 	return getCloudFactor(true_clouds);
 }
 
-function getCloudFactor(cloud) {
-	return 1 - 0.75 * (cloud / 100);
-}
-
 function updateUVI(user_inputs, uvi_data, peakUVIHour, avgElement) {
 	// pull current time
 	const now = new Date();
@@ -179,10 +199,6 @@ function timeFormat(seconds) {
 	}
 
 	return `${totalHours} hr ${totalMinutes} min ${seconds} sec`
-}
-
-function calculateIUPerMinute(user_inputs) {
-	return ((100*user_inputs["current_uvi"]*user_inputs["clouds"]) / user_inputs["fitzpatrick"]) * user_inputs["age"] * user_inputs["skin"];
 }
 
 function getPeakUVIHour(uvi_data) {
